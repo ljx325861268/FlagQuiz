@@ -38,9 +38,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import li.emily.navbar.Model.AppDatabase;
 import li.emily.navbar.Model.Country;
 import li.emily.navbar.Model.CountryDB;
 import li.emily.navbar.Model.EasyCountry;
+import li.emily.navbar.Model.QuestionAnswerDB;
 import li.emily.navbar.R;
 import li.emily.navbar.ui.dashboard.DashboardViewModel;
 
@@ -52,6 +54,8 @@ public class QuestionFragment extends Fragment {
     private Button B;
     private Button C;
     private Button D;
+
+    private TextView answer;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,12 +70,12 @@ public class QuestionFragment extends Fragment {
         C = v.findViewById(R.id.id_c);
         D = v.findViewById(R.id.id_d);
         flagImage = v.findViewById(R.id.id_flag);
-
+        answer = v.findViewById(R.id.answer);
 
 
         // gets the correct answer
-        Country correctCountry = CountryDB.correctCountries.remove(0);
-
+        final Country correctCountry = CountryDB.correctCountries.remove(0);
+        answer.setText(correctCountry.getName());
         // gets the three incorrect answers
         List<Country> incorrectCountries = new ArrayList<Country>();
         List<Country> dbIncorrectCountries = CountryDB.incorrectCountries;
@@ -82,18 +86,48 @@ public class QuestionFragment extends Fragment {
         int correctIndex = (int) (Math.random() * 4);
         List<Button> buttons = Arrays.asList(A,B,C,D);
         int i = 0;
+        final AppDatabase db = AppDatabase.getInstance(getContext());
         for(Button button : buttons){
             if(i == correctIndex){
                 button.setText(correctCountry.getName());
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        QuestionAnswerDB.latestAnswer = true;
+                        QuestionAnswerDB.correctChoices.add(correctCountry);
+                        db.countryDao().updateCorrect(correctCountry.getName());
+                        getAnswerFragment();
+                    }
+                });
             } else {
-                button.setText(incorrectCountries.remove(0).getName());
+                final Country incorrectChoice = incorrectCountries.remove(0);
+                button.setText(incorrectChoice.getName());
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        QuestionAnswerDB.latestAnswer = false;
+                        QuestionAnswerDB.incorrectChoices.add(incorrectChoice);
+                        QuestionAnswerDB.choice = incorrectChoice.getName();
+                        QuestionAnswerDB.correct = correctCountry.getName();
+                        db.countryDao().updateCorrect(incorrectChoice.getName());
+                        getAnswerFragment();
+                    }
+                });
             }
             i++;
         }
 
         String imageUrl = correctCountry.getFlag();
         getImage(imageUrl);
+    }
 
+    public void getAnswerFragment(){
+        Fragment aFragment = new AnswerFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.question_fragment, aFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public void getImage(String imageUrl){

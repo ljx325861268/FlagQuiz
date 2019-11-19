@@ -3,15 +3,18 @@
     android:id="@+id/answer_fragnment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/flagbackground">
 
     <TextView
         android:id="@+id/correctincorrect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
+        android:gravity="center"
         android:padding="30dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/id_buttonnext"
@@ -19,5 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:onClick="onClickNextQuestion"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
         android:text="Next" />
 </LinearLayout>

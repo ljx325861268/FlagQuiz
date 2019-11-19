@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 public class Country {
     private String name;
+    private String subregion;
     private String flag;
 
     public Bitmap getFlagImage() {
@@ -30,5 +31,13 @@ public class Country {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getSubregion() {
+        return subregion;
+    }
+
+    public void setSubregion(String subregion) {
+        this.subregion = subregion;
     }
 }

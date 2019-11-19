@@ -22,9 +22,12 @@ import androidx.navigation.ui.NavigationUI;
 import java.util.HashMap;
 import java.util.List;
 
+import li.emily.navbar.Model.AppDatabase;
 import li.emily.navbar.Model.Country;
 import li.emily.navbar.Model.CountryDB;
+import li.emily.navbar.Model.CountryRow;
 import li.emily.navbar.Model.EasyCountry;
+import li.emily.navbar.Model.SubregionRow;
 import li.emily.navbar.R;
 
 import static java.security.AccessController.getContext;
@@ -78,6 +81,20 @@ public class MainActivity extends AppCompatActivity {
                     }
                     CountryDB.setEasyCountryMap(easyCountryMap);
                 }
+
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                int tableCount = db.countryDao().count();
+                if(tableCount == 0){
+                    List<Country> allCountries = CountryDB.getCountries();
+                    for(Country c : allCountries){
+                        CountryRow row = new CountryRow(c.getName(), c.getSubregion());
+                        db.countryDao().insert(row);
+                    }
+                } else {
+                    List<CountryRow> list = db.countryDao().getCountries();
+                    List<SubregionRow> subregionRows = db.countryDao().getSubregionResults("Australia and New Zealand");
+                    int a  = 1;
+                }
             }
         };
 
@@ -94,13 +111,4 @@ public class MainActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    // prepare questions for the easy countries
-    public void getEasyCountries(){
-
-    }
-
-    //prepare questions for the hard countries
-    public void getHardCountries(){
-
-    }
 }

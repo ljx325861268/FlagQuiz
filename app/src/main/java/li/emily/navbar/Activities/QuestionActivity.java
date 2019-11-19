@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import li.emily.navbar.Fragments.AnswerFragment;
 import li.emily.navbar.Fragments.QuestionFragment;
+import li.emily.navbar.Model.CountryDB;
 import li.emily.navbar.R;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -25,35 +27,25 @@ public class QuestionActivity extends AppCompatActivity {
         qFragment = new QuestionFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.question_fragment, qFragment);
+        fragmentTransaction.add(R.id.question_fragment, qFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
-    public void onClickA(View v){
-        selectionClick(0);
-    }
 
-    public void onClickB(View v){
-        selectionClick(1);
-    }
-
-    public void onClickC(View v){
-        selectionClick(2);
-    }
-
-    public void onClickD(View v){
-        selectionClick(3);
-    }
-
-    public void selectionClick(int selection){
-        aFragment = new AnswerFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.question_fragment, aFragment);
-        fragmentTransaction.commit();
-    }
 
     public void onClickNextQuestion(View v){
-
+        // after five questions, return to the main menu
+        if(CountryDB.correctCountries.size() == 0) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        } else {
+            qFragment = new QuestionFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.question_fragment, qFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
     }
 }
