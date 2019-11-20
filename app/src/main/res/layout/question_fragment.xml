@@ -16,17 +16,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
             <ImageView
                 android:id="@+id/id_flag"
                 android:layout_width="match_parent"
                 android:layout_height="344dp"
-                app:srcCompat="@android:drawable/ic_menu_rotate" />
+                app:srcCompat="@android:drawable/ic_menu_rotate"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"/>
 
             <Button
                 android:id="@+id/id_a"
