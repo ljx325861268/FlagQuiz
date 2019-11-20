@@ -22,7 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import java.util.HashMap;
 import java.util.List;
 
-import li.emily.navbar.Model.AppDatabase;
+import li.emily.navbar.RoomDatabase.AppDatabase;
 import li.emily.navbar.Model.Country;
 import li.emily.navbar.Model.CountryDB;
 import li.emily.navbar.Model.CountryRow;
@@ -30,9 +30,9 @@ import li.emily.navbar.Model.EasyCountry;
 import li.emily.navbar.Model.SubregionRow;
 import li.emily.navbar.R;
 
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends AppCompatActivity {
+
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
+        db = AppDatabase.getInstance(getApplicationContext());
+        CountryRow a = new CountryRow("Australia", "Australia and New Zealand", 1, 1);
+        db.countryDao().insert(a);
         callAPI();
+
     }
 
     public void onTakeQuizClick(View v){
@@ -82,12 +85,13 @@ public class MainActivity extends AppCompatActivity {
                     CountryDB.setEasyCountryMap(easyCountryMap);
                 }
 
-                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+
+
                 int tableCount = db.countryDao().count();
                 if(tableCount == 0){
                     List<Country> allCountries = CountryDB.getCountries();
                     for(Country c : allCountries){
-                        CountryRow row = new CountryRow(c.getName(), c.getSubregion());
+                        CountryRow row = new CountryRow(c.getName(), c.getSubregion(),0,0);
                         db.countryDao().insert(row);
                     }
                 } else {

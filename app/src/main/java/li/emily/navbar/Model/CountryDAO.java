@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -29,6 +30,9 @@ public interface CountryDAO {
     @Query("update CountryRow set attempted = 1, correct = 1 where name = :countryName")
     void updateCorrect(String countryName);
 
-    @Query("update CountryRow set attempted = 1, correct = 0 where name = :countryName")
-    void updateIncorrect(String countryName);
+    @Update
+    void updateIncorrect(CountryRow country);
+
+    @Query("delete from CountryRow where name is not null")
+    void deleteTable();
 }
