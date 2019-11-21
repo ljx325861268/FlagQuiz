@@ -10,7 +10,7 @@
         android:id="@+id/id_medium"
         android:layout_width="match_parent"
         android:layout_height="229dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:onClick="onMediumClick"
         app:srcCompat="@drawable/mediumbutton" />
 

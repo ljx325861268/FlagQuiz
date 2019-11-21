@@ -82,7 +82,7 @@ public class QuestionFragment extends Fragment {
                     public void onClick(View view) {
                         QuestionAnswerDB.latestAnswer = true;
                         QuestionAnswerDB.correctChoices.add(correctCountry);
-                        DatabaseSingleton.db.countryDao().updateCorrect(correctCountry.getName());
+                        //DatabaseSingleton.db.countryDao().updateCorrect(correctCountry.getName());
                         getAnswerFragment();
                     }
                 });
