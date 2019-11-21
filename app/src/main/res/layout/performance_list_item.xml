@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="3dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="3dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:background="?attr/actionBarDivider"
     android:orientation="vertical">
 
     <LinearLayout
@@ -60,5 +61,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#808080"/>
+        android:background="#808080" />
 </LinearLayout>
