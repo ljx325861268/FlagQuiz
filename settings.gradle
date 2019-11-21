@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='navbar'
+rootProject.name='flagquiz'

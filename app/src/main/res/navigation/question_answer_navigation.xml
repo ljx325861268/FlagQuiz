@@ -8,13 +8,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="li.emily.navbar.Fragments.QuestionFragment"
+        android:name="li.emily.flagquiz.Fragments.QuestionFragment"
         android:label="Question"
         tools:layout="@layout/question_fragment" />
 
     <fragment
         android:id="@+id/navigation_answer"
-        android:name="li.emily.navbar.Fragments.AnswerFragment"
+        android:name="li.emily.flagquiz.Fragments.AnswerFragment"
         android:label="Answer"
         tools:layout="@layout/answer_fragment" />
 

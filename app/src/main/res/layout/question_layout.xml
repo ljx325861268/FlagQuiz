@@ -9,11 +9,11 @@
         android:id="@+id/question_fragment"
         android:layout_width="match_parent"
         android:layout_height="669dp"
-        android:name="li.emily.navbar.Fragments.QuestionFragment" />
+        android:name="li.emily.flagquiz.Fragments.QuestionFragment" />
 
     <FrameLayout
         android:layout_width="669dp"
         android:layout_height="match_parent"
         android:id="@+id/answer_fragment"
-        android:name="li.emily.navbar.Fragments.AnswerFragment"/>
+        android:name="li.emily.flagquiz.Fragments.AnswerFragment"/>
 </LinearLayout>
