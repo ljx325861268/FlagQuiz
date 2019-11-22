@@ -14,7 +14,6 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/id_performance_rv"
             android:layout_width="match_parent"
-            android:layout_height="757dp"
-            android:background="@color/colorPrimary" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
